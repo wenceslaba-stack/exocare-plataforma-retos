@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Plataforma de retos EXOCARE</title>
+<meta name="description" content="Plataforma abierta de retos sociosanitarios en la movilización de personas dependientes. Galicia y Norte de Portugal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<script>document.documentElement.className='js';</script>
+</head>
+<body>
+<style>
+/* la X de EXOCARE al entrar: estilos dentro de la página para que nunca salga sin forma */
+.intro{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:#fff;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.intro svg{display:block;width:120px;height:120px;overflow:visible}
+.intro path{fill:none;stroke:#275d80;stroke-width:68;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.intro circle{fill:#0f94ce;opacity:0;transform-box:fill-box;transform-origin:center;transform:translateY(-140px) scale(.4)}
+.intro.intro-play{animation:exoIntroOut .6s cubic-bezier(.16,1,.3,1) 1.35s forwards}
+.intro.intro-play path{animation:exoDraw .55s cubic-bezier(.65,0,.35,1) forwards}
+.intro.intro-play .i2{animation-delay:.42s;animation-duration:.35s}
+.intro.intro-play circle{animation:exoDrop .6s cubic-bezier(.34,1.56,.64,1) .72s forwards}
+@keyframes exoDraw{to{stroke-dashoffset:0}}
+@keyframes exoDrop{to{transform:none;opacity:1}}
+@keyframes exoIntroOut{to{opacity:0;visibility:hidden;transform:scale(1.04)}}
+.intro-wait .hero .w,.intro-wait .hero .kicker,.intro-wait .hero .lead,.intro-wait .hero .cta{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.intro{display:none}}
+</style>
+<div class="intro" id="intro" aria-hidden="true">
+  <svg viewBox="0 0 223 223" width="120" height="120"><path class="i1" pathLength="1" d="M34 34 L189 189" fill="none" stroke="#275d80" stroke-width="68" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1"/><path class="i2" pathLength="1" d="M34 189 L95 128" fill="none" stroke="#275d80" stroke-width="68" stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1"/><circle class="i3" cx="189" cy="34" r="34" fill="#0f94ce" opacity="0"/></svg>
+</div>
+<script>
+(function(){
+  var i=document.getElementById('intro'), root=document.documentElement, started=false;
+  try{ if(sessionStorage.getItem('exo-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches){ i.remove(); return; } }catch(e){}
+  root.classList.add('intro-wait');
+  function go(){ if(started) return; started=true; try{ sessionStorage.setItem('exo-intro','1'); }catch(e){} i.classList.add('intro-play'); root.classList.remove('intro-wait'); setTimeout(function(){ i.remove(); },2300); }
+  var inView=!('IntersectionObserver' in window), frames=0;
+  if(!inView){ new IntersectionObserver(function(es){ inView=es[0].isIntersecting; },{threshold:.5}).observe(i); }
+  function tick(){
+    if(started) return;
+    if(document.visibilityState==='visible' && inView){ if(++frames>8) return go(); } else frames=0;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  setTimeout(function(){ if(!started){ i.remove(); root.classList.remove('intro-wait'); } },10000);
+})();
+</script>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip" href="#app" data-i="skip"></a>
+
+<header class="head" id="head">
+  <div class="band2" aria-hidden="true"><i></i><i></i></div>
+  <div class="wrap head-row">
+    <a class="logo" href="#inicio" aria-label="Interreg España-Portugal · EXOCARE Movilidad asistida"><img src="imagenes/logo.svg" alt="Interreg España-Portugal · Cofinanciado por la Unión Europea · EXOCARE Movilidad asistida"></a>
+    <nav class="menu" id="menu" aria-label="Secciones">
+      <a href="#inicio" data-route="inicio" data-i="nav_inicio"></a>
+      <a href="#perfiles" data-route="perfiles" data-i="nav_perf"></a>
+      <a href="#retos" data-route="retos" data-i="nav_retos"></a>
+      <a href="#requisitos" data-route="requisitos" data-i="nav_req"></a>
+      <span class="menu-ink" id="menu-ink" aria-hidden="true"></span>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Língua">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="foot">
+  <h2 class="foot-t" data-i="partners"></h2>
+  <div class="marquee" aria-hidden="false">
+    <div class="marquee-track">
+      <img src="imagenes/partners.png" alt="Logotipos de las entidades participantes en EXOCARE">
+      <img src="imagenes/partners.png" alt="" aria-hidden="true">
+    </div>
+  </div>
+  <div class="legal">
+    <div class="wrap legal-row">
+      <p data-i="legal"></p>
+      <div class="legal-links"><a href="https://erlac-exocare.es/" target="_blank" rel="noopener">erlac-exocare.es</a></div>
+    </div>
+  </div>
+  <div class="band1" aria-hidden="true"></div>
+</footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Secciones">
+  <a href="#inicio" data-route="inicio"><span data-icon="home2"></span><b data-i="nav_inicio"></b></a>
+  <a href="#perfiles" data-route="perfiles"><span data-icon="people"></span><b data-i="nav_perf"></b></a>
+  <a href="#retos" data-route="retos"><span data-icon="grid4"></span><b data-i="nav_retos"></b></a>
+  <a href="#requisitos" data-route="requisitos"><span data-icon="exo"></span><b data-i="nav_req"></b></a>
+  <i class="tab-ink" id="tab-ink" aria-hidden="true"></i>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
