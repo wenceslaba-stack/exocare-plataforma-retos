@@ -1,7 +1,7 @@
 /* EXOCARE · datos de la plataforma (ES/PT) */
 const AMBITOS = {
   tarea:{es:"Tareas de movilización", pt:"Tarefas de mobilização", icon:"move"},
-  entorno:{es:"Entorno físico", pt:"Ambiente físico", icon:"home"},
+  entorno:{es:"Espacio y mobiliario", pt:"Espaço e mobiliário", icon:"home"},
   org:{es:"Organización del trabajo", pt:"Organização do trabalho", icon:"clock"},
   ayudas:{es:"Ayudas técnicas y evidencia", pt:"Ajudas técnicas e evidência", icon:"tool"},
   exo:{es:"Uso del exoesqueleto", pt:"Utilização do exosqueleto", icon:"exo"},
